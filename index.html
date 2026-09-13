@@ -2,30 +2,138 @@
 <html lang="bn">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Facebook Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Website Login</title>
+
 <style>
-body{font-family:Arial;background:#f0f2f5;display:flex;justify-content:center;align-items:center;height:100vh}
-.box{background:white;padding:25px;border-radius:12px;width:320px;text-align:center;box-shadow:0 3px 15px #bbb}
-h2{color:#1877f2}
-input{width:90%;padding:12px;margin:8px;border:1px solid #ddd;border-radius:6px}
-button{width:98%;padding:12px;background:#1877f2;color:white;border:0;border-radius:6px;font-size:16px}
-#msg{margin-top:15px;color:#555}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f0f2f5;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  width: 330px;
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px #bbb;
+  text-align: center;
+}
+
+h1 {
+  color: #1877f2;
+}
+
+input {
+  width: 100%;
+  padding: 13px;
+  margin: 7px 0;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 13px;
+  margin-top: 10px;
+  border: none;
+  border-radius: 7px;
+  background: #1877f2;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: .9;
+}
+
+.error {
+  color: red;
+  margin-top: 12px;
+}
+
+#dashboard {
+  display: none;
+}
+
+.logout {
+  background: #555;
+}
 </style>
 </head>
+
 <body>
-<div class="box">
-<h2>Facebook</h2>
-<p>এটি একটি নিরাপদ পেইজ</p>
-<input type="text" placeholder="add your phone or email">
-<input type="password" placeholder="password">
-<button onclick="demo()">Login</button>
-<div id="msg"></div>
+
+<!-- LOGIN PAGE -->
+<div class="box" id="loginBox">
+  <h1>My Website</h1>
+  <p>আপনার অ্যাকাউন্টে লগইন করুন</p>
+
+  <input id="username" type="text" placeholder="Username">
+  <input id="password" type="password" placeholder="Password">
+
+  <button onclick="login()">Login</button>
+
+  <div class="error" id="error"></div>
 </div>
+
+
+<!-- INSIDE / DASHBOARD -->
+<div class="box" id="dashboard">
+  <h1>Welcome! 🎉</h1>
+
+  <p>আপনি সফলভাবে লগইন করেছেন।</p>
+  <p>এটি আপনার ওয়েবসাইটের ভিতরের পেজ।</p>
+
+  <button class="logout" onclick="logout()">Logout</button>
+</div>
+
+
 <script>
-function demo(){
-document.getElementById("msg").innerText="দয়া করে কিছুক্ষণ অপেক্ষা করুন";
+
+function login() {
+
+  // ডেমোর জন্য নির্ধারিত username/password
+  const correctUsername = "demo";
+  const correctPassword = "1234";
+
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  if (username === correctUsername && password === correctPassword) {
+
+    document.getElementById("loginBox").style.display = "none";
+    document.getElementById("dashboard").style.display = "block";
+
+  } else {
+
+    document.getElementById("error").innerText =
+      "Username অথবা Password ভুল।";
+  }
 }
+
+
+function logout() {
+
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("loginBox").style.display = "block";
+
+  document.getElementById("username").value = "";
+  document.getElementById("password").value = "";
+}
+
 </script>
+
 </body>
 </html>
