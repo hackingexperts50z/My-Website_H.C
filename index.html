@@ -3,134 +3,200 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My Website Login</title>
+<title>Facebook Demo Login</title>
 
 <style>
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f0f2f5;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
 }
 
-body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f0f2f5;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.box{
+  width:360px;
+  background:white;
+  padding:25px;
+  border-radius:8px;
+  box-shadow:0 2px 12px #bbb;
+  text-align:center;
 }
 
-.box {
-  width: 330px;
-  background: white;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px #bbb;
-  text-align: center;
+.logo{
+  color:#1877f2;
+  font-size:40px;
+  font-weight:bold;
+  margin-bottom:20px;
 }
 
-h1 {
-  color: #1877f2;
+input{
+  width:100%;
+  padding:14px;
+  margin:7px 0;
+  border:1px solid #ddd;
+  border-radius:6px;
+  font-size:16px;
 }
 
-input {
-  width: 100%;
-  padding: 13px;
-  margin: 7px 0;
-  border: 1px solid #ccc;
-  border-radius: 7px;
-  font-size: 15px;
+button{
+  width:100%;
+  padding:13px;
+  margin-top:10px;
+  border:0;
+  border-radius:6px;
+  background:#1877f2;
+  color:white;
+  font-size:17px;
+  font-weight:bold;
 }
 
-button {
-  width: 100%;
-  padding: 13px;
-  margin-top: 10px;
-  border: none;
-  border-radius: 7px;
-  background: #1877f2;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
+.green{
+  background:#42b72a;
 }
 
-button:hover {
-  opacity: .9;
+.hidden{
+  display:none;
 }
 
-.error {
-  color: red;
-  margin-top: 12px;
-}
-
-#dashboard {
-  display: none;
-}
-
-.logout {
-  background: #555;
+.message{
+  margin-top:15px;
+  font-size:15px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN PAGE -->
+<!-- LOGIN -->
 <div class="box" id="loginBox">
-  <h1>My Website</h1>
-  <p>আপনার অ্যাকাউন্টে লগইন করুন</p>
 
-  <input id="username" type="text" placeholder="Username">
-  <input id="password" type="password" placeholder="Password">
+  <div class="logo">facebook</div>
 
-  <button onclick="login()">Login</button>
+  <input id="username"
+         type="text"
+         placeholder="Demo email or phone">
 
-  <div class="error" id="error"></div>
+  <input id="password"
+         type="password"
+         placeholder="Demo password">
+
+  <button onclick="login()">Log In</button>
+
+  <p class="message">
+    এটি একটি নিরাপদ ডেমো পেজ।
+  </p>
+
 </div>
 
 
-<!-- INSIDE / DASHBOARD -->
-<div class="box" id="dashboard">
-  <h1>Welcome! 🎉</h1>
+<!-- VERIFICATION -->
+<div class="box hidden" id="verifyBox">
 
-  <p>আপনি সফলভাবে লগইন করেছেন।</p>
-  <p>এটি আপনার ওয়েবসাইটের ভিতরের পেজ।</p>
+  <h2>Security Check</h2>
 
-  <button class="logout" onclick="logout()">Logout</button>
+  <p>ডেমো যাচাই সম্পন্ন করতে নিচের বাটনে চাপুন।</p>
+
+  <button onclick="showCode()">Continue</button>
+
+</div>
+
+
+<!-- CODE -->
+<div class="box hidden" id="codeBox">
+
+  <h2>Verification</h2>
+
+  <p>এটি শুধুমাত্র ডেমো verification screen।</p>
+
+  <input id="demoCode"
+         type="text"
+         placeholder="Demo verification code">
+
+  <button onclick="verify()">Verify</button>
+
+</div>
+
+
+<!-- DASHBOARD -->
+<div class="box hidden" id="dashboard">
+
+  <div class="logo">facebook</div>
+
+  <h2>Welcome! 🎉</h2>
+
+  <p>আপনি সফলভাবে ডেমো Dashboard-এ প্রবেশ করেছেন।</p>
+
+  <p>
+    কোনো আসল Facebook তথ্য সংগ্রহ বা পাঠানো হয়নি।
+  </p>
+
+  <button class="green" onclick="logout()">Log Out</button>
+
 </div>
 
 
 <script>
 
-function login() {
+function login(){
 
-  // ডেমোর জন্য নির্ধারিত username/password
-  const correctUsername = "demo";
-  const correctPassword = "1234";
+  let user = document.getElementById("username").value;
+  let pass = document.getElementById("password").value;
 
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+  // শুধুমাত্র ডেমো credential
+  if(user === "demo" && pass === "1234"){
 
-  if (username === correctUsername && password === correctPassword) {
+    document.getElementById("loginBox")
+      .classList.add("hidden");
 
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("dashboard").style.display = "block";
+    document.getElementById("verifyBox")
+      .classList.remove("hidden");
 
-  } else {
+  }else{
 
-    document.getElementById("error").innerText =
-      "Username অথবা Password ভুল।";
+    alert("ডেমো লগইনের জন্য ব্যবহার করুন:\n\nUsername: demo\nPassword: 1234");
+
   }
 }
 
 
-function logout() {
+function showCode(){
 
-  document.getElementById("dashboard").style.display = "none";
-  document.getElementById("loginBox").style.display = "block";
+  document.getElementById("verifyBox")
+    .classList.add("hidden");
 
-  document.getElementById("username").value = "";
-  document.getElementById("password").value = "";
+  document.getElementById("codeBox")
+    .classList.remove("hidden");
+
+}
+
+
+function verify(){
+
+  document.getElementById("codeBox")
+    .classList.add("hidden");
+
+  document.getElementById("dashboard")
+    .classList.remove("hidden");
+
+}
+
+
+function logout(){
+
+  document.getElementById("dashboard")
+    .classList.add("hidden");
+
+  document.getElementById("loginBox")
+    .classList.remove("hidden");
+
+  document.getElementById("username").value="";
+  document.getElementById("password").value="";
+
 }
 
 </script>
