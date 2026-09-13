@@ -3,44 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Facebook Demo Login</title>
+<title>My Demo App</title>
 
 <style>
-*{box-sizing:border-box}
+*{
+  box-sizing:border-box;
+}
 
 body{
   margin:0;
   font-family:Arial,sans-serif;
-  background:#f0f2f5;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  min-height:100vh;
+  background:#f1f3f6;
 }
 
-.box{
-  width:360px;
-  background:white;
-  padding:25px;
-  border-radius:8px;
-  box-shadow:0 2px 12px #bbb;
+header{
+  background:#1877f2;
+  color:white;
+  padding:18px;
   text-align:center;
-}
-
-.logo{
-  color:#1877f2;
-  font-size:40px;
+  font-size:22px;
   font-weight:bold;
-  margin-bottom:20px;
 }
 
-input{
-  width:100%;
-  padding:14px;
-  margin:7px 0;
-  border:1px solid #ddd;
-  border-radius:6px;
-  font-size:16px;
+.container{
+  padding:20px;
+  max-width:500px;
+  margin:auto;
+}
+
+.card{
+  background:white;
+  padding:20px;
+  margin-bottom:15px;
+  border-radius:12px;
+  box-shadow:0 2px 8px #ccc;
 }
 
 button{
@@ -48,154 +44,145 @@ button{
   padding:13px;
   margin-top:10px;
   border:0;
-  border-radius:6px;
+  border-radius:8px;
   background:#1877f2;
   color:white;
-  font-size:17px;
-  font-weight:bold;
+  font-size:16px;
 }
 
-.green{
-  background:#42b72a;
+button:hover{
+  opacity:.9;
 }
 
-.hidden{
+.nav{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:white;
+  display:flex;
+  justify-content:space-around;
+  padding:12px;
+  box-shadow:0 -2px 8px #ccc;
+}
+
+.nav button{
+  width:30%;
+  margin:0;
+  padding:10px 5px;
+  font-size:14px;
+}
+
+.page{
   display:none;
 }
 
-.message{
-  margin-top:15px;
-  font-size:15px;
+.active{
+  display:block;
 }
 </style>
 </head>
 
 <body>
 
-<!-- LOGIN -->
-<div class="box" id="loginBox">
+<header>
+  My Demo App
+</header>
 
-  <div class="logo">facebook</div>
+<div class="container">
 
-  <input id="username"
-         type="text"
-         placeholder="Demo email or phone">
+  <!-- HOME -->
+  <div id="home" class="page active">
 
-  <input id="password"
-         type="password"
-         placeholder="Demo password">
+    <div class="card">
+      <h2>🏠 Home</h2>
+      <p>স্বাগতম! এটি তোমার নিজের তৈরি Demo App।</p>
+    </div>
 
-  <button onclick="login()">Log In</button>
+    <div class="card">
+      <h3>আজকের খবর</h3>
+      <p>এখানে তুমি তোমার নিজের লেখা বা তথ্য দেখাতে পারবে।</p>
+    </div>
 
-  <p class="message">
-    এটি একটি নিরাপদ ডেমো পেজ।
-  </p>
+  </div>
+
+
+  <!-- PROFILE -->
+  <div id="profile" class="page">
+
+    <div class="card">
+      <h2>👤 Profile</h2>
+      <p><b>Name:</b> Demo User</p>
+      <p><b>Status:</b> Active</p>
+
+      <button onclick="alert('Profile Edit Demo')">
+        Edit Profile
+      </button>
+    </div>
+
+  </div>
+
+
+  <!-- SETTINGS -->
+  <div id="settings" class="page">
+
+    <div class="card">
+      <h2>⚙️ Settings</h2>
+
+      <button onclick="darkMode()">
+        Dark Mode
+      </button>
+
+      <button onclick="alert('Settings Saved!')">
+        Save Settings
+      </button>
+
+    </div>
+
+  </div>
 
 </div>
 
 
-<!-- VERIFICATION -->
-<div class="box hidden" id="verifyBox">
+<!-- NAVIGATION -->
+<div class="nav">
 
-  <h2>Security Check</h2>
+  <button onclick="showPage('home')">
+    🏠 Home
+  </button>
 
-  <p>ডেমো যাচাই সম্পন্ন করতে নিচের বাটনে চাপুন।</p>
+  <button onclick="showPage('profile')">
+    👤 Profile
+  </button>
 
-  <button onclick="showCode()">Continue</button>
-
-</div>
-
-
-<!-- CODE -->
-<div class="box hidden" id="codeBox">
-
-  <h2>Verification</h2>
-
-  <p>এটি শুধুমাত্র ডেমো verification screen।</p>
-
-  <input id="demoCode"
-         type="text"
-         placeholder="Demo verification code">
-
-  <button onclick="verify()">Verify</button>
-
-</div>
-
-
-<!-- DASHBOARD -->
-<div class="box hidden" id="dashboard">
-
-  <div class="logo">facebook</div>
-
-  <h2>Welcome! 🎉</h2>
-
-  <p>আপনি সফলভাবে ডেমো Dashboard-এ প্রবেশ করেছেন।</p>
-
-  <p>
-    কোনো আসল Facebook তথ্য সংগ্রহ বা পাঠানো হয়নি।
-  </p>
-
-  <button class="green" onclick="logout()">Log Out</button>
+  <button onclick="showPage('settings')">
+    ⚙️ Settings
+  </button>
 
 </div>
 
 
 <script>
 
-function login(){
+function showPage(page){
 
-  let user = document.getElementById("username").value;
-  let pass = document.getElementById("password").value;
+  let pages = document.querySelectorAll(".page");
 
-  // শুধুমাত্র ডেমো credential
-  if(user === "demo" && pass === "1234"){
+  pages.forEach(function(p){
+    p.classList.remove("active");
+  });
 
-    document.getElementById("loginBox")
-      .classList.add("hidden");
-
-    document.getElementById("verifyBox")
-      .classList.remove("hidden");
-
-  }else{
-
-    alert("ডেমো লগইনের জন্য ব্যবহার করুন:\n\nUsername: demo\nPassword: 1234");
-
-  }
+  document.getElementById(page)
+    .classList.add("active");
 }
 
 
-function showCode(){
+function darkMode(){
 
-  document.getElementById("verifyBox")
-    .classList.add("hidden");
-
-  document.getElementById("codeBox")
-    .classList.remove("hidden");
-
-}
-
-
-function verify(){
-
-  document.getElementById("codeBox")
-    .classList.add("hidden");
-
-  document.getElementById("dashboard")
-    .classList.remove("hidden");
-
-}
-
-
-function logout(){
-
-  document.getElementById("dashboard")
-    .classList.add("hidden");
-
-  document.getElementById("loginBox")
-    .classList.remove("hidden");
-
-  document.getElementById("username").value="";
-  document.getElementById("password").value="";
+  document.body.style.background =
+    document.body.style.background === "rgb(25, 25, 25)"
+    ? "#f1f3f6"
+    : "#191919";
 
 }
 
